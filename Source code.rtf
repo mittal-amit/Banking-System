@@ -1,0 +1,1950 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fswiss\fcharset0 Helvetica-BoldOblique;
+\f3\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red127\green0\blue85;\red63\green95\blue191;\red127\green159\blue191;
+\red0\green0\blue192;\red42\green0\blue255;\red106\green62\blue62;\red63\green127\blue95;}
+{\*\expandedcolortbl;;\csgenericrgb\c49804\c0\c33333;\csgenericrgb\c24706\c37255\c74902;\csgenericrgb\c49804\c62353\c74902;
+\csgenericrgb\c0\c0\c75294;\csgenericrgb\c16471\c0\c100000;\csgenericrgb\c41569\c24314\c24314;\csgenericrgb\c24706\c49804\c37255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs24 \cf2 package
+\f1\b0 \cf0  javaproject1;\
+\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.io.BufferedReader;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.io.FileInputStream;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.io.FileNotFoundException;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.io.FileReader;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.io.FileWriter;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.io.IOException;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.io.PrintWriter;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.nio.file.Files;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.nio.file.Paths;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.text.DecimalFormat;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.util.ArrayList;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.util.Arrays;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.util.InputMismatchException;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.util.List;\
+
+\f0\b \cf2 import
+\f1\b0 \cf0  java.util.Scanner;\
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 /**\cf0 \
+\cf3  * This is banking system allows to create new account for new customer and let them do transaction \cf0 \
+\cf3  * like deposit, withdraw and transfer fund\cf0 \
+\cf3  * Customer or bank employee can login to the system and they will authenticated with user credentials\cf0 \
+\cf3  * \cf0 \
+\cf3  * 
+\f0\b \cf4 @author
+\f1\b0 \cf3  \ul Amit\ulnone  \ul Mittal\ulnone  (C0785472)\cf0 \
+\cf3  *\cf0 \
+\cf3  */\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b \cf2 public
+\f1\b0 \cf0  
+\f0\b \cf2 class
+\f1\b0 \cf0  JavaProject \{\
+	Scanner \cf5 keyboard\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  Scanner (System.
+\f2\i\b \cf5 in
+\f1\i0\b0 \cf0 );\
+	ArrayList<String> \cf5 details\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  ArrayList<String>();\
+	
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf5 input\cf0 ; \
+	\
+	\cf3 /**\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	 * This method allows user to choose either employee or existing customer  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  showMainMenu() 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 do
+\f1\b0 \cf0  \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "\\nWelcome to the 'World Bank'\\n\\n"\cf0 \
+					+ \cf6 "Please enter\\n"\cf0 \
+					+ \cf6 "1. Employee\\n"\cf0 \
+					+ \cf6 "2. Customer\\n"\cf0 \
+					+ \cf6 "0. Exit\\n"\cf0 );\
+			\
+			\cf5 input\cf0  = \cf5 keyboard\cf0 .nextInt();\
+			\cf5 keyboard\cf0 .nextLine();\
+\
+			
+\f0\b \cf2 switch
+\f1\b0 \cf0 (\cf5 input\cf0 ) \{\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  1:\
+				showMenuForEmp();\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  2:\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your user id: "\cf0 );\
+				String \cf7 userIdCheck\cf0  = \cf5 keyboard\cf0 .nextLine().trim();\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your password: "\cf0 );\
+				String \cf7 passwordCheck\cf0  = \cf5 keyboard\cf0 .nextLine().trim();\
+				credentialCheckUser(2, \cf7 userIdCheck\cf0 , \cf7 passwordCheck\cf0 );\
+				task(\cf7 userIdCheck\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 default
+\f1\b0 \cf0 :\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf5 input\cf0 !=0) \{\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Would you like to start over?"\cf0 );\
+				\}\
+			\}\
+		\}
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf5 input\cf0 !=0);\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Thank you for using our services."\cf0 );\
+				\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This method is used to ask user name and password for employee  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+		\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  showMenuForEmp() 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Welcome to our internal system.\\n"\cf0 );\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your user name:"\cf0 );\
+		String \cf7 userName\cf0  = \cf5 keyboard\cf0 .nextLine();\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter password:"\cf0 );\
+		String \cf7 password\cf0  = \cf5 keyboard\cf0 .nextLine();\
+		credentialCheckEmp(\cf7 userName\cf0 , \cf7 password\cf0 );\
+		showSubMenuForEmp();\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This method is used to display options available to the employee  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+			\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  showSubMenuForEmp() 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{	\
+		
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 input\cf0  = 1;\
+		
+\f0\b \cf2 do
+\f1\b0 \cf0  \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "\\nPlease select"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "1. Create new user"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "2. Access exisiting user"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "0. Log out"\cf0 );\
+			\cf7 input\cf0  = \cf5 keyboard\cf0 .nextInt();\
+			\cf5 keyboard\cf0 .nextLine();\
+			\
+			
+\f0\b \cf2 switch
+\f1\b0 \cf0 (\cf7 input\cf0 ) \{\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  1:\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please provide customer's details:\\n"\cf0 );\
+				askDetails();\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  2:\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter an user id: "\cf0 );\
+				String \cf7 userIdCheck\cf0  = \cf5 keyboard\cf0 .nextLine().trim();\
+				checkUser(\cf7 userIdCheck\cf0 );\
+				task(\cf7 userIdCheck\cf0 );\
+		\}\
+	\}
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf7 input\cf0 !=0);\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This method asks employee to provide details of customer for account creation   \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+		\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  askDetails() 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your name: "\cf0 );\
+			String \cf7 name\cf0  = \cf5 keyboard\cf0 .nextLine().trim();\
+			\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your mobile no.: "\cf0 );\
+			
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 mobile\cf0  = \cf5 keyboard\cf0 .nextInt();\
+			\cf5 keyboard\cf0 .nextLine();\
+			\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your username: "\cf0 );\
+			String \cf7 userName\cf0  = \cf5 keyboard\cf0 .nextLine().trim();\
+			\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your password: "\cf0 );\
+			String \cf7 password\cf0  = \cf5 keyboard\cf0 .nextLine().trim();\
+			\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter, what type of account would like to open with us: \\n"\cf0 \
+					+ \cf6 "1. Chequing Account\\n"\cf0 \
+					+ \cf6 "2. Savings Account\\n"\cf0 );\
+			\
+			String \cf7 bankType\cf0  = accountType();\
+			ArrayList<String> \cf7 accDetails\cf0  = accOpening(\cf7 bankType\cf0 );\
+			\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "\\nWould you like to deposit some money?"\cf0 \
+					+ \cf6 "\\nIf yes, please enter the amount"\cf0 \
+					+ \cf6 ", or enter 0 for no amount"\cf0 );\
+			
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 balance\cf0  = \cf5 keyboard\cf0 .nextDouble();\
+\
+			
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 balance\cf0 >0) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "The amount $"\cf0 +\cf7 balance\cf0 +\cf6 " has been deposited in your "\cf0 +\cf7 bankType\cf0 +\cf6 "."\cf0 );\
+				userData(\cf7 name\cf0 , \cf7 mobile\cf0 , \cf7 userName\cf0 , \cf7 password\cf0 , \cf7 balance\cf0 , \cf7 bankType\cf0 , \cf7 accDetails\cf0 .get(0), \cf7 accDetails\cf0 .get(1), \cf7 accDetails\cf0 .get(2), \cf7 accDetails\cf0 .get(3));\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 balance\cf0 <=0) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Thank you!"\cf0 );\
+				userData(\cf7 name\cf0 , \cf7 mobile\cf0 , \cf7 userName\cf0 , \cf7 password\cf0 , \cf7 balance\cf0 , \cf7 bankType\cf0 , \cf7 accDetails\cf0 .get(0), \cf7 accDetails\cf0 .get(1), \cf7 accDetails\cf0 .get(2), \cf7 accDetails\cf0 .get(3));\
+			\}\
+			\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "\\nCongratulations "\cf0 + \cf7 name\cf0  +\cf6 "! Welcome to our bank.\\n"\cf0  \
+					+\cf6 "We've opened "\cf0 +\cf7 bankType\cf0 +\cf6 " account for you."\cf0 );\
+			\
+			\cf5 details\cf0 .clear();\
+			\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (InputMismatchException \cf7 e\cf0 ) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+				\cf5 keyboard\cf0 .nextLine();\
+				askDetails();\
+				\
+			\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (IOException \cf7 e\cf0 ) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again\\n"\cf0 );\
+				\cf5 keyboard\cf0 .nextLine();\
+				askDetails();	\
+				\}\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This let to choose account type while creating an account for new user  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  string This is either \ul Chequing\ulnone  Account or Savings Account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+		\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  String accountType() \{\
+		String \cf7 output\cf0  = \cf6 ""\cf0 ;\
+		
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 k\cf0  = 0;\
+		
+\f0\b \cf2 while
+\f1\b0 \cf0  (\cf7 k\cf0  == 0) \{\
+			
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 accountTyp\cf0  = \cf5 keyboard\cf0 .nextInt();\
+			\cf5 keyboard\cf0 .nextLine();\
+			
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 accountTyp\cf0  == 1) \{\
+				\cf7 output\cf0  = \cf6 "Chequing Account"\cf0 ;\
+				\cf7 k\cf0 ++;\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 accountTyp\cf0  == 2)\{\
+				\cf7 output\cf0  =  \cf6 "Savings Account"\cf0 ;\
+				\cf7 k\cf0 ++;\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+			\}\
+		\}\
+		
+\f0\b \cf2 return
+\f1\b0 \cf0  \cf7 output\cf0 ;\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This asks to provide details as per account type from new user  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  accounType This is account type, which is passed to this method\cf0 \
+\cf3 	 * accordingly it will ask for details\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  \ul Arraylist\ulnone  with details of the customer \ul accoriding\ulnone  to the bank type\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  ArrayList<String> accOpening(String \cf7 accountType\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		ArrayList<String> \cf7 bankDetails\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  ArrayList<String>();\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 accountType\cf0 .equals(\cf6 "Chequing Account"\cf0 )) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your security account number: "\cf0 );\
+				
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 detail1\cf0  = \cf5 keyboard\cf0 .nextInt();\
+				\cf5 keyboard\cf0 .nextLine();\
+				\cf7 bankDetails\cf0 .add(0, Integer.
+\f3\i toString
+\f1\i0 (\cf7 detail1\cf0 ));\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your Driving license number: "\cf0 );\
+				
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 detail2\cf0  = \cf5 keyboard\cf0 .nextInt();\
+				\cf5 keyboard\cf0 .nextLine();\
+				\cf7 bankDetails\cf0 .add(1, Integer.
+\f3\i toString
+\f1\i0 (\cf7 detail2\cf0 ));\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Thank you for providing your details."\cf0 );\
+				\cf7 bankDetails\cf0 .add(2, \cf6 "-"\cf0 );\
+				\cf7 bankDetails\cf0 .add(3, \cf6 "-"\cf0 );\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 accountType\cf0 .equals(\cf6 "Savings Account"\cf0 ))\{\
+				\cf7 bankDetails\cf0 .add(0, \cf6 "-"\cf0 );\
+				\cf7 bankDetails\cf0 .add(1, \cf6 "-"\cf0 );\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please us about your future goal like travel or house, will track it for you"\cf0 );\
+				String \cf7 detail3\cf0  = \cf5 keyboard\cf0 .nextLine();\
+				\cf7 bankDetails\cf0 .add(2, \cf7 detail3\cf0 );\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the amount you need for it"\cf0 );\
+				
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 detail4\cf0  = \cf5 keyboard\cf0 .nextInt();\
+				\cf5 keyboard\cf0 .nextLine();\
+				\cf7 bankDetails\cf0 .add(3, Integer.
+\f3\i toString
+\f1\i0 (\cf7 detail4\cf0 ));\
+				\}	\
+			\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (InputMismatchException \cf7 e\cf0 ) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter account info again\\n"\cf0 );\
+				\cf5 keyboard\cf0 .nextLine();\
+				accOpening(\cf7 accountType\cf0 );	\
+				\}\
+		
+\f0\b \cf2 return
+\f1\b0 \cf0  \cf7 bankDetails\cf0 ;\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This saves all the personal detail of the customer to an ArrayList\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  name Name of the customer\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  mobile Mobile number of the customer\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  username \ul Username\ulnone  of the customer'account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  password Password of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  balance Shows the balance in customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  accType Account type\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  accDetail1 Account details of \ul chequing\ulnone  account Security account \ul numnber\ulnone  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  accDetail2 Account details of \ul chequing\ulnone  account driving license\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  accDetail3 Account details of savings account goal\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  accDetail4 Account details of savings account target amount\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 public
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  userData(String \cf7 name\cf0 , 
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 mobile\cf0 , String \cf7 userName\cf0 , String \cf7 password\cf0 , Double \cf7 balance\cf0 , String \cf7 accType\cf0 , \
+			String \cf7 accDetail1\cf0 , String \cf7 accDetail2\cf0 , String \cf7 accDetail3\cf0 , String \cf7 accDetail4\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		\
+		\cf5 details\cf0 .add(\cf7 name\cf0 );\
+		\cf5 details\cf0 .add(String.
+\f3\i valueOf
+\f1\i0 (\cf7 mobile\cf0 ));\
+		\cf5 details\cf0 .add(\cf7 userName\cf0 );\
+		\cf5 details\cf0 .add(\cf7 password\cf0 );\
+\
+		
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 accType\cf0 .equals(\cf6 "Chequing Account"\cf0 )) \{\
+			\cf5 details\cf0 .add(String.
+\f3\i valueOf
+\f1\i0 (\cf7 balance\cf0 ));\
+			\cf5 details\cf0 .add(\cf6 "0"\cf0 );\
+			\cf5 details\cf0 .add(\cf6 "Chequing"\cf0 );\
+			\cf5 details\cf0 .add(\cf6 "-"\cf0 );\
+		\}\
+		
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+			\cf5 details\cf0 .add(\cf6 "0"\cf0 );\
+			\cf5 details\cf0 .add(String.
+\f3\i valueOf
+\f1\i0 (\cf7 balance\cf0 ));\
+			\cf5 details\cf0 .add(\cf6 "-"\cf0 );\
+			\cf5 details\cf0 .add(\cf6 "Savings"\cf0 );\
+		\}\
+		\cf5 details\cf0 .add(\cf7 accDetail1\cf0 );\
+		\cf5 details\cf0 .add(\cf7 accDetail2\cf0 );\
+		\cf5 details\cf0 .add(\cf7 accDetail3\cf0 );\
+		\cf5 details\cf0 .add(\cf7 accDetail4\cf0 );\
+\
+		dataInFile(\cf5 details\cf0 );\
+		userIdFile(\cf7 userName\cf0 );\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This stores customer's details in text file  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  revisedArray details stored in ArrayList\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  dataInFile(List<String> \cf7 revisedArray\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		FileWriter \cf7 save\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  FileWriter(\cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 revisedArray\cf0 .get(2)+\cf6 ".txt"\cf0 , 
+\f0\b \cf2 true
+\f1\b0 \cf0 );\
+		PrintWriter \cf7 userFile\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  PrintWriter(\cf7 save\cf0 );\
+		\cf7 userFile\cf0 .println(\cf7 revisedArray\cf0 );\
+		\cf7 userFile\cf0 .println(\cf6 "Your name: "\cf0  + \cf7 revisedArray\cf0 .get(0));\
+		\cf7 userFile\cf0 .println(\cf6 "Your mobile no: "\cf0  + \cf7 revisedArray\cf0 .get(1));\
+		\cf7 userFile\cf0 .println(\cf6 "Your username:"\cf0  + \cf7 revisedArray\cf0 .get(2));\
+		\cf7 userFile\cf0 .println(\cf6 "Your password: "\cf0  + \cf7 revisedArray\cf0 .get(3));\
+		\cf7 userFile\cf0 .println(\cf6 "Your chequing account's balance: "\cf0  + \cf7 revisedArray\cf0 .get(4));\
+		\cf7 userFile\cf0 .println(\cf6 "Your saving account's balance: "\cf0  + \cf7 revisedArray\cf0 .get(5));\
+		\cf7 userFile\cf0 .println(\cf6 "Account with us:"\cf0  + \cf7 revisedArray\cf0 .get(6));\
+		\cf7 userFile\cf0 .println(\cf6 "Account with us"\cf0  + \cf7 revisedArray\cf0 .get(7));\
+		\cf7 userFile\cf0 .println(\cf6 "Your Social Security Number:"\cf0  + \cf7 revisedArray\cf0 .get(8));\
+		\cf7 userFile\cf0 .println(\cf6 "Your Driving License Number:"\cf0  + \cf7 revisedArray\cf0 .get(9));\
+		\cf7 userFile\cf0 .println(\cf6 "Your Goal:"\cf0  + \cf7 revisedArray\cf0 .get(10));\
+		\cf7 userFile\cf0 .println(\cf6 "Tagret amount for your goal($):"\cf0  + \cf7 revisedArray\cf0 .get(11));\
+		\cf7 userFile\cf0 .close();\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This stores user id in different text file for user name check  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName user name of the customer\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  userIdFile(String \cf7 userName\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		FileWriter \cf7 save\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  FileWriter(\cf6 "/Users/bunny/Desktop/userid.txt"\cf0 , 
+\f0\b \cf2 true
+\f1\b0 \cf0 );\
+		PrintWriter \cf7 userFile\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  PrintWriter(\cf7 save\cf0 );\
+		\cf7 userFile\cf0 .println(\cf7 userName\cf0 );\
+		\cf7 userFile\cf0 .close();\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This checks if user exists or not, checks from file which has all the user id  \cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName user name of the customer\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  checkUser(String \cf7 userid\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			
+\f0\b \cf2 boolean
+\f1\b0 \cf0  \cf7 flag\cf0  = 
+\f0\b \cf2 false
+\f1\b0 \cf0 ;\
+		    
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 count\cf0  = 0;	\
+			Scanner \cf7 scan\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  Scanner(
+\f0\b \cf2 new
+\f1\b0 \cf0  FileInputStream(\cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 userid\cf0 +\cf6 ".txt"\cf0 ));\
+			
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf7 scan\cf0 .hasNextLine()) \{\
+				String \cf7 line\cf0  = \cf7 scan\cf0 .nextLine();\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0 (\cf7 line\cf0 .indexOf(\cf7 userid\cf0 )!=-1) \{\
+					\cf7 flag\cf0  = 
+\f0\b \cf2 true
+\f1\b0 \cf0 ;\
+				    \cf7 count\cf0  = \cf7 count\cf0 +1;\
+				\}\
+			\}\
+			
+\f0\b \cf2 if
+\f1\b0 \cf0 (\cf7 flag\cf0 ) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Validation done! Please proceed further\\n"\cf0 );\
+				\} 
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the user id again"\cf0 );\
+					checkUser(\cf5 keyboard\cf0 .nextLine());\
+				\}\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0 (FileNotFoundException \cf7 e\cf0 ) \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again with valid input."\cf0 );\
+			checkUser(\cf5 keyboard\cf0 .nextLine());\
+		\}	\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This checks if user exist or not, check with the file name\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number of user id passed\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName password of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  credentialCheckUser(
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexNo\cf0 , String \cf7 userid\cf0 , String \cf7 password\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			String[] \cf7 value\cf0  = 
+\f0\b \cf2 null
+\f1\b0 \cf0 ;\
+			BufferedReader \cf7 scan\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  BufferedReader(
+\f0\b \cf2 new
+\f1\b0 \cf0  FileReader(\cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 userid\cf0 +\cf6 ".txt"\cf0 ));\
+			String \cf7 text\cf0  = \cf7 scan\cf0 .readLine().replaceAll(\cf6 "[\\\\[\\\\]\\\\(\\\\)]"\cf0 , \cf6 ""\cf0 ).replaceAll(\cf6 " "\cf0 , \cf6 ""\cf0 );\
+			\cf7 value\cf0  = \cf7 text\cf0 .split(\cf6 ","\cf0 );\
+			
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 i\cf0 =0;\
+			
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf7 i\cf0 ==0) \{\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 userid\cf0 .equals(\cf7 value\cf0 [2]) && \cf7 password\cf0 .equals(\cf7 value\cf0 [3])) \{\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Thank you! you're successfully logged in."\cf0 );\
+					\cf7 i\cf0 ++;\
+				\}\
+				
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your password: "\cf0 );\
+					\cf7 password\cf0  = \cf5 keyboard\cf0 .nextLine().trim();\
+				\}\
+				\cf7 scan\cf0 .close();\
+			\}\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (FileNotFoundException \cf7 e\cf0 ) \{\
+	           System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again with valid user id."\cf0 );;\
+	           showMainMenu();\
+	       \}\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This checks the user credentials from the text file named with user id\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  password password of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  credentialCheckEmp(String \cf7 userName\cf0 , String \cf7 password\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 if
+\f1\b0 \cf0 (\cf7 userName\cf0 .equals(\cf6 "bank"\cf0 ) && \cf7 password\cf0 .equals(\cf6 "bank"\cf0 )) \{							\cf8 //User id and password set bank by default	\cf0 \
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Congratulations! You're successfully logged in."\cf0 );\
+		\}\
+		
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+			showMenuForEmp();\
+		\}	\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This method perform all the task available after authentication\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  task(String \cf7 userid\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 do
+\f1\b0 \cf0  \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "\\nPlease select one option"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "1. Check balance"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "2. Deposit money"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "3. Withdraw money"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "4. Pay your utility bill"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "5. Transfer amount"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "6. Change full name"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "7. Change mobile no"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "8. Show details"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "9. Open another type of account"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "0. Exit"\cf0 );\
+			\cf5 input\cf0  = \cf5 keyboard\cf0 .nextInt();\
+			\cf5 keyboard\cf0 .nextLine();\
+			\
+			
+\f0\b \cf2 switch
+\f1\b0 \cf0 (\cf5 input\cf0 ) \{\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  1:\
+				checkBalance(fileAccess(bankSelection(\cf7 userid\cf0 ), \cf7 userid\cf0 ));\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  2:\
+				
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal1\cf0  = bankSelection(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt1\cf0  = Double.
+\f3\i parseDouble
+\f1\i0 (fileAccess(\cf7 indexVal1\cf0 , \cf7 userid\cf0 ));\
+				depositMoney(\cf7 indexVal1\cf0 , \cf7 userid\cf0 , \cf7 initialAmt1\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  3:\
+				
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal2\cf0  = bankSelection(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt2\cf0  = Double.
+\f3\i parseDouble
+\f1\i0 (fileAccess(\cf7 indexVal2\cf0 , \cf7 userid\cf0 ));\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 indexVal2\cf0 ==4) \{\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "You'll be charged 0.5% for withdrawal."\cf0 );\
+					withdrawMoney(\cf7 indexVal2\cf0 , \cf7 userid\cf0 , \cf7 initialAmt2\cf0 , 0.005);\
+				\}\
+				
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "You'll be charged 1% for withdrawal."\cf0 );\
+					withdrawMoney(\cf7 indexVal2\cf0 , \cf7 userid\cf0 , \cf7 initialAmt2\cf0 , 0.01);\
+				\}\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  4:\
+				
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal3\cf0  = bankSelection(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt3\cf0  = Double.
+\f3\i parseDouble
+\f1\i0 (fileAccess(\cf7 indexVal3\cf0 , \cf7 userid\cf0 ));\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 indexVal3\cf0 ==4) \{\
+					utilityBill(\cf7 indexVal3\cf0 , \cf7 userid\cf0 , \cf7 initialAmt3\cf0 );\
+				\}\
+				
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+					utilityBill(\cf7 indexVal3\cf0 , \cf7 userid\cf0 , \cf7 initialAmt3\cf0 );\
+				\}\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  5:\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the benficiary's user id"\cf0 );\
+				String \cf7 transferUserTo\cf0  = \cf5 keyboard\cf0 .nextLine();\
+				checkUser(\cf7 transferUserTo\cf0 );\
+				
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal4\cf0  = bankSelection(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt4\cf0  = Double.
+\f3\i parseDouble
+\f1\i0 (fileAccess(\cf7 indexVal4\cf0 , \cf7 userid\cf0 ));\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 indexVal4\cf0 ==4) \{\
+					transferAmt(\cf7 indexVal4\cf0 , \cf7 userid\cf0 , \cf7 initialAmt4\cf0 , \cf7 transferUserTo\cf0 );\
+				\}\
+				
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+					transferAmt(5, \cf7 userid\cf0 , \cf7 initialAmt4\cf0 , \cf7 transferUserTo\cf0 );\
+				\}\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  6:\
+				nameChange(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  7:\
+				numberChange(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  8:\
+				showDetails(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 case
+\f1\b0 \cf0  9:\
+				openAnotherAccount(\cf7 userid\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			
+\f0\b \cf2 default
+\f1\b0 \cf0 :\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf5 input\cf0 !=0) \{\
+					System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Would you like to start over?"\cf0 );\
+				\}\
+			\}\
+		\}
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf5 input\cf0 !=0);\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This does the bank selection for different task\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  \ul int\ulnone  returns the index value for value to replaced in the array list\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 int
+\f1\b0 \cf0  bankSelection(String \cf7 userid\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 value\cf0  = 0;\
+		\
+		
+\f0\b \cf2 if
+\f1\b0 \cf0  (fileAccess(6, \cf7 userid\cf0 ).equals(\cf6 "Chequing"\cf0 ) && fileAccess(7, \cf7 userid\cf0 ).equals(\cf6 "-"\cf0 )) \{\
+			\cf7 value\cf0  = 4;\
+			
+\f0\b \cf2 return
+\f1\b0 \cf0  \cf7 value\cf0 ;\
+			\}\
+		
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0  (fileAccess(6, \cf7 userid\cf0 ).equals(\cf6 "-"\cf0 ) && fileAccess(7, \cf7 userid\cf0 ).equals(\cf6 "Savings"\cf0 )) \{\
+			\cf7 value\cf0  = 5;\
+			
+\f0\b \cf2 return
+\f1\b0 \cf0  \cf7 value\cf0 ;\
+		\}\
+		
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0  (fileAccess(6, \cf7 userid\cf0 ).equals(\cf6 "Chequing"\cf0 ) && fileAccess(7, \cf7 userid\cf0 ).equals(\cf6 "Savings"\cf0 )) \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter bank account type: \\n"\cf0 \
+					+ \cf6 "1. Chequing Account\\n"\cf0 \
+					+ \cf6 "2. Savings Account\\n"\cf0 );\
+			
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 accountTyp\cf0  = \cf5 keyboard\cf0 .nextInt();\
+			\cf5 keyboard\cf0 .nextLine();\
+				
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 accountTyp\cf0 ==1) \{\
+					
+\f0\b \cf2 return
+\f1\b0 \cf0  4;\
+				\}\
+				
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0 (\cf7 accountTyp\cf0 ==2) \{\
+					
+\f0\b \cf2 return
+\f1\b0 \cf0  5;\
+				\}\
+		\}\
+		
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+			String \cf7 userId\cf0  = \cf5 keyboard\cf0 .nextLine();\
+			bankSelection(\cf7 userId\cf0 );\
+		\}\
+		
+\f0\b \cf2 return
+\f1\b0 \cf0  \cf7 value\cf0 ;\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This checks the text file of customer and returns the element from the file as per index value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number to be access to get the value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userName password of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  String value for which index and user name is passed\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  String fileAccess(
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexNo\cf0 , String \cf7 userid\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			BufferedReader \cf7 scan\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  BufferedReader(
+\f0\b \cf2 new
+\f1\b0 \cf0  FileReader(\cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 userid\cf0 +\cf6 ".txt"\cf0 ));\
+			String \cf7 text\cf0  = \cf7 scan\cf0 .readLine().replaceAll(\cf6 "[\\\\[\\\\]\\\\(\\\\)]"\cf0 , \cf6 ""\cf0 ).replaceAll(\cf6 " "\cf0 , \cf6 ""\cf0 );\
+			String[] \cf7 value\cf0  = \cf7 text\cf0 .split(\cf6 ","\cf0 );\
+			\cf7 scan\cf0 .close();\
+			
+\f0\b \cf2 return
+\f1\b0 \cf0  (\cf7 value\cf0 [\cf7 indexNo\cf0 ]);\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (FileNotFoundException \cf7 e\cf0 ) \{\
+	           System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please confirm the user id once again"\cf0 );\
+		\}\
+		String \cf7 userId1\cf0  = \cf5 keyboard\cf0 .nextLine();\
+		
+\f0\b \cf2 return
+\f1\b0 \cf0  fileAccess (\cf7 indexNo\cf0 , \cf7 userId1\cf0 );\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This checks the balance from the account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  value amount is passed\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  checkBalance(String \cf7 value\cf0 )\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Balance in your account is: $"\cf0 + \cf7 value\cf0 .trim()+\cf6 "\\n"\cf0 );\
+	\}\
+\
+	\cf3 /**\cf0 \
+\cf3 	 * This deposit the money into the account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number to be access to get the value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  intialAmt available balance before depositing the money\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 \
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  depositMoney(
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal\cf0 , String \cf7 userid\cf0 , 
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the amount to deposit (in numbers): "\cf0 );\
+		
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 depositAmt\cf0  = \cf5 keyboard\cf0 .nextDouble(); \
+		
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 finalAmt\cf0  = \cf7 initialAmt\cf0  + \cf7 depositAmt\cf0 ; \
+		editDetail(\cf7 userid\cf0 , \cf7 indexVal\cf0 , \cf7 finalAmt\cf0 );\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your money has been deposited.\\n"\cf0 );\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This withdraws the money into the account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number to be access to get the value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  intialAmt available balance before withdrawing the money\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  charges applicable as per bank account as withdraw fee\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  withdrawMoney(
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal\cf0 , String \cf7 userid\cf0 , 
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt\cf0 , 
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 charges\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the amount to withdraw (only numbers): "\cf0 );\
+		
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 i\cf0  = 0;\
+		\
+		
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf7 i\cf0  == 0) \{\
+			
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 withdrawAmt\cf0  = \cf5 keyboard\cf0 .nextDouble(); \
+			
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 initialAmt\cf0 >=\cf7 withdrawAmt\cf0 ) \{\
+				
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 finalAmt\cf0  = (\cf7 initialAmt\cf0  - (\cf7 withdrawAmt\cf0 + (\cf7 withdrawAmt\cf0 *\cf7 charges\cf0 ))); \
+				\cf7 finalAmt\cf0  =Double.
+\f3\i parseDouble
+\f1\i0 (
+\f0\b \cf2 new
+\f1\b0 \cf0  DecimalFormat(\cf6 "##.##"\cf0 ).format(\cf7 finalAmt\cf0 ));\
+				editDetail(\cf7 userid\cf0 , \cf7 indexVal\cf0 , \cf7 finalAmt\cf0 );\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your money has been withdrawn. "\cf0 \
+								+\cf6 "Current balance in your account is: $"\cf0 +\cf7 finalAmt\cf0 +\cf6 "\\n"\cf0 );\
+				\cf7 i\cf0 ++;\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Transactional value cannot be higer than avialable balance, "\cf0 \
+						+ \cf6 "Please enter the amount again (only numbers): "\cf0 );\
+			\}\
+		\}\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This allows to pay utility from the account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number to be access to get the value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  intialAmt available balance before withdrawing the money\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  utilityBill(
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal\cf0 , String \cf7 userid\cf0 , 
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the amount to be paid (only numbers): "\cf0 );\
+		
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 i\cf0  = 0;\
+		
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf7 i\cf0  == 0) \{\
+			
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 billAmt\cf0  = \cf5 keyboard\cf0 .nextDouble(); \
+			
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 initialAmt\cf0 >=\cf7 billAmt\cf0 ) \{\
+				
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 finalAmt\cf0  = (\cf7 initialAmt\cf0  - \cf7 billAmt\cf0 ); \
+				editDetail(\cf7 userid\cf0 , \cf7 indexVal\cf0 , \cf7 finalAmt\cf0 );\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Bill has been paid. "\cf0 \
+									+\cf6 "Current balance in your account is: $"\cf0 +\cf7 finalAmt\cf0 +\cf6 "\\n"\cf0 );\
+				\cf7 i\cf0 ++;	\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Transactional value cannot be higer than avialable balance, "\cf0 \
+						+ \cf6 "Please enter the amount again (only numbers): "\cf0 );\
+			\}\
+		\}\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This allows to transfer amount from one account to another beneficiary's account in same bank\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number to be access to get the value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  intialAmt available balance before withdrawing the money\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  transferUserTo user id of the beneficiary's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  transferAmt(
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal\cf0 , String \cf7 userid\cf0 , 
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 initialAmt\cf0 , String \cf7 transferUserTo\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the amount to be transferred (only numbers): "\cf0 );\
+		
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 transMoney\cf0  = \cf5 keyboard\cf0 .nextDouble(); \
+		
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 i\cf0  = 0;\
+		
+\f0\b \cf2 while
+\f1\b0 \cf0 (\cf7 i\cf0  == 0) \{\
+			
+\f0\b \cf2 if
+\f1\b0 \cf0  (\cf7 initialAmt\cf0 >=\cf7 transMoney\cf0 ) \{\
+				
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 finalAmt\cf0  = (\cf7 initialAmt\cf0  - \cf7 transMoney\cf0 ); \
+				\cf7 finalAmt\cf0  = Double.
+\f3\i parseDouble
+\f1\i0 (
+\f0\b \cf2 new
+\f1\b0 \cf0  DecimalFormat(\cf6 "##.##"\cf0 ).format(\cf7 finalAmt\cf0 ));\
+				editDetail(\cf7 userid\cf0 , \cf7 indexVal\cf0 , \cf7 finalAmt\cf0 );\
+				\cf7 i\cf0 ++;\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Transactional value cannot be higer than avialable balance, "\cf0 \
+						+ \cf6 "Please enter the amount again (only numbers): "\cf0 );\
+				\cf7 transMoney\cf0  = \cf5 keyboard\cf0 .nextDouble(); \
+			\}\
+		\}\
+		
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexVal5\cf0  = bankSelection(\cf7 transferUserTo\cf0 );\
+		
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 beneficiarysFinalAmt\cf0  = Double.
+\f3\i parseDouble
+\f1\i0 (fileAccess(\cf7 indexVal5\cf0 , \cf7 transferUserTo\cf0 ))+ \cf7 transMoney\cf0 ;\
+		editDetail(\cf7 transferUserTo\cf0 , \cf7 indexVal5\cf0 , \cf7 beneficiarysFinalAmt\cf0 );\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Congratulations! Amount has been credited to benficiary's account"\cf0 );\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Current balance in your account is: $"\cf0 +fileAccess(\cf7 indexVal\cf0 , \cf7 userid\cf0 )+\cf6 "\\n"\cf0 );\
+	\}\
+		\
+	\cf3 /**\cf0 \
+\cf3 	 * This allows to change name\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  nameChange(String \cf7 userId\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter revised name"\cf0 );\
+		String \cf7 revisedName\cf0  = \cf5 keyboard\cf0 .nextLine();\
+		editName(\cf7 userId\cf0 , 0, \cf7 revisedName\cf0 );\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your name has been changed.\\n"\cf0 );\
+	\}\
+	\cf3 /**\cf0 \
+\cf3 	 * This allows to change mobile number\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  numberChange(String \cf7 userId\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException\{\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter new mobile no"\cf0 );\
+		String \cf7 revisedNumber\cf0  = \cf5 keyboard\cf0 .nextLine();\
+		editName(\cf7 userId\cf0 , 1, \cf7 revisedNumber\cf0 );\
+		System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your number has been changed.\\n"\cf0 );\
+	\}	\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This shows the personal detail of the customer\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  showDetails(String \cf7 userid\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			BufferedReader \cf7 scan\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  BufferedReader(
+\f0\b \cf2 new
+\f1\b0 \cf0  FileReader(\cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 userid\cf0 +\cf6 ".txt"\cf0 ));\
+			String \cf7 text\cf0  = \cf7 scan\cf0 .readLine().replaceAll(\cf6 "[\\\\[\\\\]\\\\(\\\\)]"\cf0 , \cf6 ""\cf0 );\
+			String[] \cf7 value\cf0  = \cf7 text\cf0 .split(\cf6 ","\cf0 );\
+			\cf7 scan\cf0 .close();\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Name: "\cf0  + (\cf7 value\cf0 [0]));\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Mobile no:"\cf0  + (\cf7 value\cf0 [1]));\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Username:"\cf0  + (\cf7 value\cf0 [2]));\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Balance in chequing account($):"\cf0  + (\cf7 value\cf0 [4]));\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Balance in saving account($):"\cf0  + (\cf7 value\cf0 [5]));\
+			
+\f0\b \cf2 if
+\f1\b0 \cf0  ((\cf7 value\cf0 [6]).contains(\cf6 "Chequing"\cf0 ) && (\cf7 value\cf0 [7]).contains(\cf6 "Savings"\cf0 )) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Account with us:"\cf0  + (\cf7 value\cf0 [6])+\cf6 " & "\cf0 +(\cf7 value\cf0 [7]));\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0  ((\cf7 value\cf0 [6]).contains(\cf6 "Chequing"\cf0 ) && (\cf7 value\cf0 [6]).contains(\cf6 "-"\cf0 )) \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Account with us:"\cf0  + (\cf7 value\cf0 [6]));\
+			\}\
+			
+\f0\b \cf2 else
+\f1\b0 \cf0  \{\
+				System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Account with us: "\cf0  + (\cf7 value\cf0 [7]));\
+			\}\
+\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your Social Security Number:"\cf0  + (\cf7 value\cf0 [8]));\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your Driving License Number:"\cf0  + (\cf7 value\cf0 [9]));\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your Goal:"\cf0  + (\cf7 value\cf0 [10]));\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Tagret amount for your goal($):"\cf0  + (\cf7 value\cf0 [11]));\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (FileNotFoundException \cf7 e\cf0 ) \{\
+	           System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please confirm the user id once again"\cf0 );\
+	           String \cf7 userId1\cf0  = \cf5 keyboard\cf0 .nextLine();\
+	           showDetails (\cf7 userId1\cf0 );\
+		\}\
+		task(\cf7 userid\cf0 );\
+	\}	\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This let customer to open another type of account under same user id to change name\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  openAnotherAccount(String \cf7 userId\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+\
+		
+\f0\b \cf2 if
+\f1\b0 \cf0  (fileAccess(6, \cf7 userId\cf0 ).equals(\cf6 "Chequing"\cf0 ) && fileAccess(7, \cf7 userId\cf0 ).equals(\cf6 "-"\cf0 )) \{\
+\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Provide below details for your saving account"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please us about your future goal like travel or buy house, will track it for you"\cf0 );\
+			String \cf7 detail3\cf0  = \cf5 keyboard\cf0 .nextLine();\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter the amount you need for it"\cf0 );\
+			String \cf7 detail4\cf0  = \cf5 keyboard\cf0 .nextLine();\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Thank you for providing your details."\cf0 );\
+			editName(\cf7 userId\cf0 , 7, \cf6 "Savings"\cf0 );\
+			editName(\cf7 userId\cf0 , 10, \cf7 detail3\cf0 );\
+			editName(\cf7 userId\cf0 , 11, \cf7 detail4\cf0 );\
+			task(\cf7 userId\cf0 );\
+		\}\
+		\
+		
+\f0\b \cf2 else
+\f1\b0 \cf0  
+\f0\b \cf2 if
+\f1\b0 \cf0  (fileAccess(6, \cf7 userId\cf0 ).equals(\cf6 "-"\cf0 ) && fileAccess(7, \cf7 userId\cf0 ).equals(\cf6 "Savings"\cf0 )) \{\
+\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Provide below details for your current account"\cf0 );\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your security account number: "\cf0 );\
+			String \cf7 detail1\cf0  = \cf5 keyboard\cf0 .nextLine();\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please enter your Driving license number: "\cf0 );\
+			String \cf7 detail2\cf0  = \cf5 keyboard\cf0 .nextLine();\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Thank you for providing your details."\cf0 );\
+			editName(\cf7 userId\cf0 , 6, \cf6 "Chequing"\cf0 );\
+			editName(\cf7 userId\cf0 , 8, \cf7 detail1\cf0 );\
+			editName(\cf7 userId\cf0 , 9, \cf7 detail2\cf0 );\
+			task(\cf7 userId\cf0 );\
+		\}\
+			\
+		
+\f0\b \cf2 else
+\f1\b0 \cf0 \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Your both accounts have been created. Would you like to start over?"\cf0 );\
+			task(\cf7 userId\cf0 );\
+		\}		\
+	\}\
+	\
+	\cf3 /**\cf0 \
+\cf3 	 * This allows to make changes when user make any transaction\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number to be access to get the value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  value revised value to be replaced with existing one as per index value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  editDetail(String \cf7 userName\cf0 , 
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexNo\cf0 , 
+\f0\b \cf2 double
+\f1\b0 \cf0  \cf7 value\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		String \cf7 lineFromFile\cf0  = \cf6 ""\cf0 ;\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			BufferedReader \cf7 scan\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  BufferedReader(
+\f0\b \cf2 new
+\f1\b0 \cf0  FileReader(\cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 userName\cf0 .trim()+\cf6 ".txt"\cf0 )); \cf8 //Opens file and read the data \cf0 \
+			
+\f0\b \cf2 while
+\f1\b0 \cf0 ((\cf7 lineFromFile\cf0  = \cf7 scan\cf0 .readLine().replaceAll(\cf6 "[\\\\[\\\\]\\\\(\\\\)]"\cf0 , \cf6 ""\cf0 ).replaceAll(\cf6 " "\cf0 , \cf6 ""\cf0 ))!=
+\f0\b \cf2 null
+\f1\b0 \cf0 ) \{\
+				String[] \cf7 revisedDetails\cf0  = \cf7 lineFromFile\cf0 .split(\cf6 ","\cf0 ); \
+				List<String> \cf7 revisedArray\cf0  = Arrays.
+\f3\i asList
+\f1\i0 (\cf7 revisedDetails\cf0 ); \
+				\cf7 revisedArray\cf0 .set(\cf7 indexNo\cf0 , String.
+\f3\i valueOf
+\f1\i0 (\cf7 value\cf0 ));\
+				String \cf7 fileName\cf0  = \cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 revisedArray\cf0 .get(2).trim()+\cf6 ".txt"\cf0 ;\
+				\
+			       
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			    	   Files.
+\f3\i delete
+\f1\i0 (Paths.
+\f3\i get
+\f1\i0 (\cf7 fileName\cf0 ));\
+			       \}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (IOException \cf7 e\cf0 ) \{\
+			           \cf7 e\cf0 .printStackTrace();\
+			       \}\
+				dataInFile(\cf7 revisedArray\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			\}\
+			\cf7 scan\cf0 .close();\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (FileNotFoundException \cf7 e\cf0 ) \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (IOException \cf7 e\cf0 ) \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+		\}\
+	\}	\
+		\
+	\cf3 /**\cf0 \
+\cf3 	 * This allows to make changes when user request for any personal details changes\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  userid user name of the customer's account\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  indexNo index number to be access to get the value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  name revised name to be replaced with existing one as per index value\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  nothing\cf0 \
+\cf3 	 * 
+\f0\b \cf4 @throws
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	 */\cf0 	\
+	\
+	
+\f0\b \cf2 private
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  editName(String \cf7 userName\cf0 , 
+\f0\b \cf2 int
+\f1\b0 \cf0  \cf7 indexNo\cf0 , String \cf7 name\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+		String \cf7 lineFromFile\cf0  = \cf6 ""\cf0 ;\
+		
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			BufferedReader \cf7 scan\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  BufferedReader(
+\f0\b \cf2 new
+\f1\b0 \cf0  FileReader(\cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 userName\cf0 .trim()+\cf6 ".txt"\cf0 )); \cf8 //Opens file and read the data \cf0 \
+			
+\f0\b \cf2 while
+\f1\b0 \cf0 ((\cf7 lineFromFile\cf0  = \cf7 scan\cf0 .readLine().replaceAll(\cf6 "[\\\\[\\\\]\\\\(\\\\)]"\cf0 , \cf6 ""\cf0 ).replaceAll(\cf6 " "\cf0 , \cf6 ""\cf0 ))!=
+\f0\b \cf2 null
+\f1\b0 \cf0 ) \{\
+				String[] \cf7 revisedDetails\cf0  = \cf7 lineFromFile\cf0 .split(\cf6 ","\cf0 ); \
+				List<String> \cf7 revisedArray\cf0  = Arrays.
+\f3\i asList
+\f1\i0 (\cf7 revisedDetails\cf0 ); \
+				\cf7 revisedArray\cf0 .set(\cf7 indexNo\cf0 , \cf7 name\cf0 );\
+				String \cf7 fileName\cf0  = \cf6 "/Users/bunny/Desktop/"\cf0 +\cf7 revisedArray\cf0 .get(2).trim()+\cf6 ".txt"\cf0 ;\
+				\
+			       
+\f0\b \cf2 try
+\f1\b0 \cf0  \{\
+			    	   Files.
+\f3\i delete
+\f1\i0 (Paths.
+\f3\i get
+\f1\i0 (\cf7 fileName\cf0 ));\
+			       \}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (IOException \cf7 e\cf0 ) \{\
+			           \cf7 e\cf0 .printStackTrace();\
+			       \}\
+				dataInFile(\cf7 revisedArray\cf0 );\
+				
+\f0\b \cf2 break
+\f1\b0 \cf0 ;\
+			\}\
+			\cf7 scan\cf0 .close();\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (FileNotFoundException \cf7 e\cf0 ) \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+		\}
+\f0\b \cf2 catch
+\f1\b0 \cf0  (IOException \cf7 e\cf0 ) \{\
+			System.
+\f2\i\b \cf5 out
+\f1\i0\b0 \cf0 .println(\cf6 "Please try again"\cf0 );\
+		\}\
+	\}	\
+		\
+	 \cf3 /**\cf0 \
+\cf3 	   * This is the main method which allows to run banking system.\cf0 \
+\cf3 	   * 
+\f0\b \cf4 @param
+\f1\b0 \cf3  args Unused.\cf0 \
+\cf3 	   * 
+\f0\b \cf4 @return
+\f1\b0 \cf3  Nothing.\cf0 \
+\cf3 	   * 
+\f0\b \cf4 @exception
+\f1\b0 \cf3  IOException On input error.\cf0 \
+\cf3 	   */\cf0 \
+	
+\f0\b \cf2 public
+\f1\b0 \cf0  
+\f0\b \cf2 static
+\f1\b0 \cf0  
+\f0\b \cf2 void
+\f1\b0 \cf0  main(String[] \cf7 args\cf0 ) 
+\f0\b \cf2 throws
+\f1\b0 \cf0  IOException \{\
+\
+		JavaProject \cf7 obj\cf0  = 
+\f0\b \cf2 new
+\f1\b0 \cf0  JavaProject();\
+		\cf7 obj\cf0 .showMainMenu();\
+	\}\
+\
+\}\
+}
