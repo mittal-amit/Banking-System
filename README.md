@@ -1,0 +1,2 @@
+# Banking-System
+System allows employees or users to login on the online platform to create a client's account with a different account option. In addition, users or customers can login to their account using their user credentials to do transactions like transferring money to another account, pay utility bills, deposit money and withdraw money. Apart from this they can also update personal details.
